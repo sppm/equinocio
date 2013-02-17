@@ -1,0 +1,5 @@
+
+* Equinócio SPPM
+
+Esse é o repositório público de documentos do equinócio da São Paulo
+Perl Mongers.

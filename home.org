@@ -1,2 +1,21 @@
 * São Paulo Perl Mongers
-test
+* Sobre o que é tudo isso afinal?
+Somos um grupo de pessoas dedicadas ao encorajamento de tudo o que
+estiver relacionado com o Perl em São Paulo. Isto envolve ajudar uns
+aos outros, discutir qualquer assunto que pareça interessante para
+algum dos membros, partilhar informaçães sobre o Perl, sobre assuntos
+técnicos, políticos, culinários, empregos e tudo o mais que parecer
+partilhável, e ocasionalmente algumas tulipas de boa cerveja.
+* Seja sociável!
+O São Paulo Perl Mongers promove [[encontro-social][encontros sociais]]
+regulares. Informe-se sobre o encontro deste mês em nossa lista de
+discussão.
+* Documentação
+** Artigos
+Veja a nossa sessão de [[artigos]], este ano foi produzido um grande
+material relacionado ao desenvolvimento em perl pelo evento [[equinócio]].
+* Comunidade
+** Lista de Discussão
+Com mais de 200 membros, você pode acompanhar, discutir e tirar suas
+dúvidas com o suporte da comunidade, clique aqui e veja como
+participar !

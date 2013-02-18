@@ -1,3 +1,2 @@
-[[camel.png]]
-* São Paulo Perl Mongers
+* São Paulo Perl Mongers [[camel.png]]
 test

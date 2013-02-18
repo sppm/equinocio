@@ -1,7 +1,7 @@
-[[Quem Somos]]
-[[Encontro Social]]
-[[Artigos]]
-[[Treinamento]]
-[[Lista]]
+[[Quem Somos]] * 
+[[Encontro Social]] * 
+[[Artigos]] * 
+[[Treinamento]] *
+[[Lista]] *
 [[IRC]]
 

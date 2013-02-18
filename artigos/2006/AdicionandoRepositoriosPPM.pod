@@ -22,7 +22,7 @@ apenas "ppm".
 
 O comando padrE<atilde>o para adicionar repositE<oacute>rios E<eacute>:
 
-     rep add NOME_DO_REPOSITÃÂÃÂRIO ENDEREÃÂÃÂO_DO_REPOSITÃÂÃÂRIO
+     rep add NOME_DO_REPOSITÓRIO ENDEREÃÇO_DO_REPOSITÃÓRIO
 
 =head2 2.2 Exemplos
 

@@ -1,3 +1,2 @@
 * São Paulo Perl Mongers
-[[camel.png]]
 test

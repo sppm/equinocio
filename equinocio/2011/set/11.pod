@@ -20,7 +20,7 @@ protocolos diferentes consigam se comunicar.
 
 =format html
 
-<img src="/static/images/equinocio/2011/set/receiver-emitter.png"/>
+<img src="receiver-emitter.png"/>
 
 =end html
 

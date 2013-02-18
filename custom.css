@@ -290,6 +290,6 @@ ul.actions li:before {
 
 .markdown-body pre {
     background-color: #000000;
-    border: none;
+    border: 1px dashed #333333;
     margin: 15px;
 }

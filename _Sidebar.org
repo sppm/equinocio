@@ -1,3 +1,4 @@
+[[onion_logo.png]]
 [[perl.png]]
 [[camel.gif]]
 ** [[Quem Somos]]
@@ -6,4 +7,3 @@
 ** [[Treinamento]]
 ** [[Lista]]
 ** [[IRC]]
-

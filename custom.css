@@ -272,7 +272,7 @@ ul.actions li:before {
     font-size: 1.2em;
 }
 
-.markdown-body h2 {
+#header-content h2 {
     border-bottom: 1px dashed #B5E853
     font-size: 1.2em;
 }

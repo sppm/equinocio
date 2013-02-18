@@ -1,6 +1,6 @@
 ** [[Quem Somos]]
 ** [[Encontro Social]]
-** [[Artigos]]
+** [[/pages/artigos][Artigos]]
 ** [[Treinamento]]
 ** [[Lista]]
 ** [[IRC]]

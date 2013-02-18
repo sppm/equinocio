@@ -280,7 +280,7 @@ ul.actions li:before {
 }
 
 .markdown-body {
-    font-size: 1.1em;
+    font-size: 1.5em;
 }
 
 .markdown-body code,
@@ -294,7 +294,6 @@ ul.actions li:before {
     background-color: #000000;
     border: 1px dashed #333333;
     margin: 15px;
-    font-size: 0.9em;
 }
 
 #gollum-editor-help-content p {

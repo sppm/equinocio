@@ -1,4 +1,7 @@
 * São Paulo Perl Mongers
+#+begin_src perl
+print "Hello World\n";
+#+end_src
 * Sobre o que é tudo isso afinal?
 Somos um grupo de pessoas dedicadas ao encorajamento de tudo o que
 estiver relacionado com o Perl em São Paulo. Isto envolve ajudar uns

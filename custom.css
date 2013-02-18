@@ -143,6 +143,10 @@ ul li:before {
   line-height: 16px;
 }
 
+ul.actions li:before {
+  list-style-type: none;
+}
+
 blockquote {
   color: #aaa;
   padding-left: 10px;

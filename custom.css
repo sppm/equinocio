@@ -318,11 +318,11 @@ ul.actions li:before {
 .markdown-body h2 {
     border-bottom: 1px dashed #B5E853;
     color: #B5E853;
-    font-size: 1.2em;
+    font-size: 1.1em;
 }
 
 .markdown-body h3 {
-    font-size: 1em;
+    font-size: 0.9em;
 }
 
 #wiki-rightbar {

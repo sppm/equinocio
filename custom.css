@@ -99,7 +99,7 @@ strong {
 
 ul li {
   list-style: inside;
-  padding-left: 25px;
+  padding-left: 10px;
 }
 
 ol li {
@@ -481,3 +481,14 @@ footer {
 .type-csharp .highlight .nn { color: #000000 }
 .type-csharp .highlight .s { color: #A31515 }
 .type-csharp .highlight .sc { color: #A31515 }
+
+/* start customization */
+
+ul.actions {
+    list-style-type: none;
+    margin-top: 10px;
+}
+ul.actions li {
+    margin-left: 0;
+    margin-bottom: 0;
+}

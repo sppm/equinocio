@@ -341,3 +341,7 @@ ul.actions li:before {
 .page #footer {
     border-top: 1px dashed #B5E853;
 }
+
+.highlight {
+    background: none;
+}

@@ -309,6 +309,7 @@ ul.actions li:before {
 
 .markdown-body h1 {
     font-size: 1.4em;
+    border-bottom: 1px dashed;
 }
 .markdown-body h2 {
     border-bottom: 1px dashed #B5E853;

@@ -1,6 +1,17 @@
 * São Paulo Perl Mongers
 #+begin_src perl
-print "Hello World\n";
+#!/usr/bin/env perl
+
+BEGIN {
+    $ENV{CATALYST_SCRIPT_GEN} = 40;
+}
+
+use Catalyst::ScriptRunner;
+use FindBin;
+use lib "$FindBin::Bin/../lib";
+Catalyst::ScriptRunner->run('MyApp', 'Server');
+
+1;
 #+end_src
 * Sobre o que é tudo isso afinal?
 Somos um grupo de pessoas dedicadas ao encorajamento de tudo o que

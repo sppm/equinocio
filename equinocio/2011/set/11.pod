@@ -18,11 +18,11 @@ PSGI significa "Perl web Server Gateway Interface". Um gateway atua como uma
 espécie de tradutor de informação para que dois ou mais programas usando
 protocolos diferentes consigam se comunicar.
 
-=format html
+=format pod:xhtml
 
 <img src="receiver-emitter.png"/>
 
-=end html
+=end pod:xhtml
 
 Vale observar que o PSGI é apenas uma interface, um padrão para coordenar a
 "conversa" com todos os outros padrões.

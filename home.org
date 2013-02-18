@@ -10,12 +10,12 @@ partilhável, e ocasionalmente algumas tulipas de boa cerveja.
 O São Paulo Perl Mongers promove [[encontro-social][encontros sociais]]
 regulares. Informe-se sobre o encontro deste mês em nossa lista de
 discussão.
-* Documentação
-** Artigos
+* Artigos
 Veja a nossa sessão de [[artigos]], este ano foi produzido um grande
 material relacionado ao desenvolvimento em perl pelo evento [[equinócio]].
-* Comunidade
-** Lista de Discussão
+* Publicações
+* Lista de Discussão
 Com mais de 200 membros, você pode acompanhar, discutir e tirar suas
 dúvidas com o suporte da comunidade, clique aqui e veja como
-participar !
+participar!
+* IRC

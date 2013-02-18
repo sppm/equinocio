@@ -293,3 +293,17 @@ ul.actions li:before {
     border: 1px dashed #333333;
     margin: 15px;
 }
+
+#gollum-editor-help-content p {
+    color: #000000;
+}
+
+.markdown-body hr {
+    background: none
+    margin-bottom: 10px;
+}
+
+#pages .breadcrumb {
+    border-bottom: 1px dashed #B5E853;
+    border-top: 1px dashed #B5E853;
+}

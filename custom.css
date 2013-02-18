@@ -332,3 +332,7 @@ ul.actions li:before {
 .u {
     color: #B5E853;
 }
+
+.page #footer {
+    border-top: 1px dashed #B5E853;
+}

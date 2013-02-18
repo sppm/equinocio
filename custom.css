@@ -507,3 +507,7 @@ li.file a {
     text-decoration: underline;
     background-color: #FBFAF7;
 }
+#wiki-rightbar {
+    background-color: #FBFAF7;
+    border: none;
+}

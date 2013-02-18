@@ -1,2 +1,2 @@
-## São Paulo Perl Mongers
+<!-- --- title: São Paulo Perl Mongers -->
 test

@@ -1,6 +1,6 @@
 =pod
 
-r2 - 19 Aug 2006 - JoenioCosta
+=encoding utf8
 
 =head1 Adicionano repositório de modulos em seu PPM
 

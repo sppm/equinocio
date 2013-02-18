@@ -249,3 +249,11 @@ a {
 .cf {
   zoom:1;
 }
+
+.minibutton a {
+  font-weight: normal;
+}
+
+.minibuttion:before {
+  content:"";
+}

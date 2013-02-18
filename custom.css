@@ -294,7 +294,7 @@ ul.actions li:before {
     background-color: #000000;
     border: 1px dashed #333333;
     margin: 15px;
-    font-size: 1em;
+    font-size: 0.9em;
 }
 
 #gollum-editor-help-content p {

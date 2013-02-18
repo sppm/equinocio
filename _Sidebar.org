@@ -1,6 +1,4 @@
 [[onion_logo.png]]
-[[perl.png]]
-[[camel.gif]]
 ** [[Quem Somos]]
 ** [[Encontro Social]]
 ** [[/pages/artigos/][Artigos]]

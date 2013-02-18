@@ -276,3 +276,7 @@ ul.actions li:before {
     border-bottom: 1px dashed #B5E853
     font-size: 1.2em;
 }
+
+#head #searchbar {
+    float: none;
+}

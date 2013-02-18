@@ -491,6 +491,7 @@ ul.actions li {
     list-style: none inside none;
     margin-left: 0;
     margin-bottom: 0;
+    padding-left: 5px;
 }
 .minibutton a {
     padding: 0.4em;

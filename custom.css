@@ -504,5 +504,6 @@ li.file a {
     color: #4183C4;
 }
 #results a:hover {
+    text-decoration: underline;
     background-color: #FBFAF7;
 }

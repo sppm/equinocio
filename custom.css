@@ -492,3 +492,11 @@ ul.actions li {
     margin-left: 0;
     margin-bottom: 0;
 }
+.minibutton a {
+    padding: 0.4em;
+}
+#sidebar-content img {
+    border: medium none;
+    margin: 0;
+    padding: 0;
+}

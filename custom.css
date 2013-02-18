@@ -231,7 +231,6 @@ hr {
 */
 
 a {
-  color: #63c0f5;
   text-shadow: 0 0 5px rgba(104, 182, 255, 0.5);
 }
 
@@ -306,4 +305,17 @@ ul.actions li:before {
 #pages .breadcrumb {
     border-bottom: 1px dashed #B5E853;
     border-top: 1px dashed #B5E853;
+}
+
+.markdown-body h1 {
+    font-size: 1.4em;
+}
+.markdown-body h2 {
+    border-bottom: 1px dashed #B5E853;
+    color: #B5E853;
+    font-size: 1.2em;
+}
+
+.markdown-body h2 {
+    font-size: 1em;
 }

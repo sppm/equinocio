@@ -1,4 +1,4 @@
-##Encontro Social
+#Encontro Social
 
 Os Encontros Sociais, também chamados de ES, são os momentos em que nos reunimos na presença da sagrada cerveja para para falar de política, mercado, literatura, emprego, cozinha, fotografia, viagens e de vez em quando até Perl!!!
 

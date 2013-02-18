@@ -257,3 +257,7 @@ a {
 ul.actions li:before {
     content: "";
 }
+
+#head {
+    border-bottom: 1px dashed #B5E853
+}

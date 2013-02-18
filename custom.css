@@ -485,10 +485,10 @@ footer {
 /* start customization */
 
 ul.actions {
-    list-style: none inside none;
     margin-top: 10px;
 }
 ul.actions li {
+    list-style: none inside none;
     margin-left: 0;
     margin-bottom: 0;
 }

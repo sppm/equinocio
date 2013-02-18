@@ -254,6 +254,6 @@ a {
   font-weight: normal;
 }
 
-.minibuttion:before {
-  content:"";
+ul.actions li:before {
+    content: "";
 }

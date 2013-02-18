@@ -324,3 +324,7 @@ ul.actions li:before {
     background-color: none;
     border: none;
 }
+
+#sidebar-content a {
+    background-color: #B5E853;
+}

@@ -5,10 +5,6 @@ Sistema elaborado para demonstrar os gastos públicos, classificados por FUNÇÃ
 
 O sistema é totalmente escrito tem Perl e neste artigo veremos como clonar o projeto do Github, configurar o ambiente local e rodar o sistema em sua máquina para poder contribuir e ajudar na complementação e evolução deste sistema.
 
-
-Clonando o projeto
------------------------
-
 O projeto, atualmente, esta no perfil do W3C Brasil no Github, que fica no endereço https://github.com/W3CBrasil/POFOMD. É dele que faremos o clone do projeto para usarmos neste artigo.
 
 Para fazer este clone, você deve ter o git instalado em sua máquina. Em máquinas debian-like você pode instalá-lo simplesmente digitando: 

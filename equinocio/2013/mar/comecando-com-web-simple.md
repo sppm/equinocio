@@ -188,7 +188,7 @@ Pronto! Agora supondo que você queria editar vários processos de uma vez, voc�
         ...
     }
 
-> Observações: Como o Web::Simple tenta tratar as extenções dos "arquivos", então você precisa tomar cuidados, pois por padrão, o Web::Simple não considera da regra nada que fica depois de um ponto final na url.
+> Observações: Como o Web::Simple tenta tratar as extensões dos "arquivos", então você precisa tomar cuidados, pois por padrão, o Web::Simple não considera da regra nada que fica depois de um ponto final na url.
 
     /one/*       matches /one/two.three    and captures "two"
     /one/*.*     matches /one/two.three    and captures "two.three"
@@ -261,7 +261,7 @@ Acessando [http://0.0.0.0:5000/um/dois/tres/quatro](http://0.0.0.0:5000/um/dois/
         'four' => 'quatro'
     };
 
-**Marcações de extenção**
+**Marcações por extensão**
 
 Como foi já foi dito, o [Web::Simple](https://metacpan.org/module/Web::Simple) tem meios para tratar as extenções. Então você pode criar:
 

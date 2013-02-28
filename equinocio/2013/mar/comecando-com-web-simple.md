@@ -263,7 +263,7 @@ Acessando [http://0.0.0.0:5000/um/dois/tres/quatro](http://0.0.0.0:5000/um/dois/
 
 **Marcações por extensão**
 
-Como foi já foi dito, o [Web::Simple](https://metacpan.org/module/Web::Simple) tem meios para tratar as extenções. Então você pode criar:
+Como foi já foi dito, o [Web::Simple](https://metacpan.org/module/Web::Simple) tem meios para tratar as extensões. Então você pode criar:
 
 `sub (.html) {` isso geralmente é utilizado para escolher o meio que você vai renderizar.
 

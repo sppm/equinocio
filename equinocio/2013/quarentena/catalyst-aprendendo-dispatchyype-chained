@@ -54,7 +54,7 @@ Cada *Private action* é apresentado por 3 colunas, *Private*, *Class* e *Method
 
 No path action, é exibido o Path e o private pth dele. Path é o caminho do endpoint que dispara os private actions. No exemplo acima, existem apenas 2 endpoints, porém, não são 2 URLs.
 
-Uma URL precisa determinar um objeto (seja pagina, arquivo ou diretorio, impressora), equanto os endpoints são textos que determinam qual serviço deve ser acesso.
+Uma URL precisa determinar um objeto (seja pagina, arquivo ou diretorio, impressora), enquanto os endpoints são textos que determinam qual serviço deve ser acesso.
 
 
 No catalyst, é utlizado o `...` e `*` como marcadores. Explicarei cada um deles mais para frente.
@@ -65,7 +65,7 @@ Utilizando os dispachers padrões, - e desconsiderando que existem os de Regexp 
 
 #### Testando eles
 
-Se você acessr [http://0:3000/](http://0:3000/) você irá ver a tela inicial do catalyst, e no log, ira aparecer algo parecido com:
+Se você acessar [http://0:3000/](http://0:3000/) você irá ver a tela inicial do catalyst, e no log, ira aparecer algo parecido com:
 
     [info] *** Request 1 (0.001/s) [18387] [Sat Mar  2 15:02:25 2013] ***
     [debug] Path is "/"
@@ -81,7 +81,7 @@ Se você acessr [http://0:3000/](http://0:3000/) você irá ver a tela inicial d
 
 Perceba o debug `[debug] Path is "/"` diz qual foi o path capturado e logo em seguida quais os actions foram executados.
 
-o methodo `/end` mais proximo do action sempre é executado, caso exista. Vamos falar sobre isso depois.
+o metodo `/end` mais proximo do action sempre é executado, caso exista. Vamos falar sobre isso depois.
 
 Se olharmos o Root.pm, iremos ver `sub index :Path :Args(0) {`.
 

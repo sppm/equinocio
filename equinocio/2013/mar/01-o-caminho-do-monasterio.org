@@ -1,4 +1,3 @@
-
 * O Caminho do Monastério - Cultivando e Promovendo o uso de Perl
 
 Sejam bem-vindos ao primeiro equinócio de 2013. Este ano temos uma
@@ -9,17 +8,17 @@ conteúdo relacionado a perl.
 ** Como funciona o equinócio?
 
 Um equinócio é um fenômeno astronômico que ocorre quando o sol está em
-zênite sobre a linha do equador. É um período de cerca de 20 dias
-durante o qual os dias e as noites tem aproximadamente a mesma
+zênite sobre a linha do equador. É um período que dura cerca de 20 dias, 
+onde os dias e as noites tem aproximadamente a mesma
 duração. A cada meia-noite desse período publicamos um artigo
 relacionado a perl no site do São Paulo PM.
 
 Apesar de parecer simples, publicar 20 artigos por 20 dias não é algo
 trivial de se fazer, existem vários problemas pra se resolver:
 
-1. Alguém precisa encontrar pessoas para escrever e revisar os
+1. Alguém precisa encontrar pessoas para escrever, revisar os
    artigos, e coordenar a publicação no horário correto.
-2. As vezes as pessoas que gostam de contribuir com artigos muitas não
+2. As vezes as pessoas que gostam de contribuir com artigos, mas muitas não
    conseguem pensar em temas a tempo.
 3. Poucas pessoas sabem como funciona a tecnologia de publicação dos
    artigos.
@@ -73,7 +72,7 @@ palavra-chave "sugestão" no título do ticket. Com um pouco de sorte,
 alguém que conhece o assunto vai se dispor a escrever um artigo sobre
 o tema e assim todos ficamos felizes.
 
-** Não sei/quero escrever artigos, o que mais posso fazer?
+** Não sei ou não quero escrever artigos, o que mais posso fazer?
 *** Divulgando
 
 Se você leu um artigo no equinócio e gostou, "twite", "facebookeie" e

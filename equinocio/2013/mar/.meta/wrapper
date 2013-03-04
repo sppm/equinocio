@@ -36,10 +36,10 @@
           <li><a href="#">Artigos</a></li>
           <li><a href="#">Lista</a></li>
           <li><a href="#">IRC</a></li>
-        </ul> -->
+        </ul>
         <form class="navbar-search pull-right" action="">
           <input class="search-query span2" type="text" placeholder="Busca">
-        </form>
+        </form>  -->
        </div>
      </div>
    </div>

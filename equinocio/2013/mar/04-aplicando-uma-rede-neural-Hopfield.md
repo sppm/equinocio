@@ -8,15 +8,15 @@ Na área da engenharia e da matemática, as redes neurais são comumente utiliza
 redes biológicas, redes artificiais agem como sistemas adaptativos, isso significa que cada parâmetro é alterado durante a sua operação para então ser aplicado ao problema em si.
 Este é o processo conhecido como fase de treinamento.
 
-As redes neurais são, basicamente sistemas, isso significa que possuem uma estrutura preparada para receber um input, processar os dados e forncecer um output. Normalmente o input
+As redes neurais são basicamente sistemas, isso significa que possuem uma estrutura preparada para receber um input, processar os dados e forncecer um output. Normalmente o input
 da rede consiste em um array de dados originado a partir de diferentes fontes como arquivos de imagem ou som, por exemplo. Uma vez apresentado o input à rede neural, e um
-correspondente output é formado, uma taxa de erro é estabelecida a partir da diferença existente entre a resposta e o output real. A partir desse ponto a rede neural é retro-alimentadal, permitindo assim ajustes aos parâmetros (aprendizado)
+correspondente output é formado, uma taxa de erro é estabelecida a partir da diferença existente entre a resposta e o output real. A partir desse ponto a rede neural é retro-alimentadal, permitindo assim ajustes aos parâmetros (aprendizado).
 
 A Rede Neural Hopfield
 ----------------------
 
 O modelo Hopfield de rede neural é provavelmente o mais simples que existe. A rede Hopfield pode ser descrita como uma rede autassociativa, tendo uma única camada de neurônios
-totalmente conectada. Isso significa que aenas uma camada de nós existe e que todos estão conectados a todos. Autoassociativo significa que se a rede neural reconhecer um padrão,
+totalmente conectada. Isso significa que apenas uma camada de nós existe e que todos estão conectados a todos. Autoassociativo significa que se a rede neural reconhecer um padrão,
 ela irá retorná-lo como output.
 
 O Módulo AI::NeuralNet::Hopfield
@@ -41,7 +41,7 @@ para estabelecer a memória dos neurônios.
 	@input_1 = qw(true true false false);
 	$hop->train(@input_1);
 
-A partir desse momento podemos já podemos começar a apresentar padrões à rede e avaliar o resultado do reconhecimento dos padrões. Vamos começar testando a rede com o mesmo padrão
+A partir desse momento já podemos começar a apresentar padrões à rede e avaliar o resultado do reconhecimento dos padrões. Vamos começar testando a rede com o mesmo padrão
 apresentado a ela:
 
 	@input_2 = qw(true true false false);
@@ -67,7 +67,7 @@ Vamos testar com outro padrão diferentes:
 	[3] "true"
 
 Nesse caso a rede respondeu novamente com o mesmo padrão. A rede não reconheceu o padrão fornecido, como o mais similar é o padrão 1001 a rede determinou que o padrão fornecido
-teve um erro e tentou corrigi-lo.
+possui um erro e tentou corrigi-lo.
 
 Uma característica das redes Hopfield é que elas sempre são treinadas para o inverso binário do padrão fornecido, neste caso o padrão 1001 (true, true, false, false). Então
 se fornecermos a ela o padrão inverso, teremos o mesmo padrão sendo 'ecoado'.
@@ -98,7 +98,7 @@ Conclusão
 ---------
 
 Redes neurais artificiais são sistemas extremamente eficientes para a resolução de questões que envolvam problemas relacionados a classificação, predição e reconhecimento de
-padrões. é possível hoje encontrar diferentes tipos de implementações e algorítmos para tais problemas.
+padrões, é possível hoje encontrar diferentes tipos de implementações e algorítmos para tais problemas.
 
 Por ser fácil, ágil e rápida, o Perl é uma linguagem bastante apropriada para a implementação de algorítmos de redes neurais, quem possuir curiosidade em testar outros algorítmos
 pode encontrá-los no CPAN buscando pelos módulos presentes em AI::NeuralNet.

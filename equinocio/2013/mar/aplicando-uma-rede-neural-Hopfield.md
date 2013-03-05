@@ -32,7 +32,7 @@ Iniciamos a utilização da rede instanciando um objeto tipo Hopfield. Para tal,
 	
 	use AI::NeuralNet::Hopfield
 	
-	$hop = AI::NeuralNet::Hopfield->new(rows => 4, cols => 4);
+	$hop = AI::NeuralNet::Hopfield->new(row => 4, col => 4);
 
 Neste momento a matriz de conectividade também chamada de matriz de peso está vazia contendo apenas zeros, ou seja não possui memória.
 Vamos definir agora um array de entrada da rede, o input. Este array será usado para o treinamento da rede e será constituído por valores booleanos. Em seguida a rede será treinada

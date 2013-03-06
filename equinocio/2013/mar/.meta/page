@@ -6,7 +6,7 @@
     <script type="text/javascript">
         /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
             var disqus_shortname = 'sopauloperlmongers';
-        var disqus_identifier = '295a5f7dbe531c312fe28b120ae529de';
+
         var disqus_url = 'http://sao-paulo.pm.org[% request().script_name()%][% request().path_info()%]';
 
         /* * * DON'T EDIT BELOW THIS LINE * * */

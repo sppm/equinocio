@@ -1,7 +1,7 @@
 Clonando, configurando e rodando o "Para onde foi o meu dinheiro?"
 ======================================================================
 
-Sistema elaborado para demonstrar os gastos públicos, classificados por FUNÇÃO de Governo e seus detalhamentos. Esta ferramenta permite ao usuário conhecer toda a tramitação orçamentária, indicando inclusive quem recebeu o recurso empenhado. A proposta é fornecer condições de maior clareza do destino dos tributos, bem como maior “mobilidade” no manuseio das informações obtidas.
+Sistema elaborado para demonstrar os gastos públicos, classificados por FUNÇÃO de Governo e seus detalhamentos. Esta ferramenta permite ao usuário conhecer toda a tramitação orçamentária, indicando inclusive quem recebeu o recurso empenhado. A proposta é fornecer condições de maior clareza do destino dos tributos, bem como maior “mobilidade” no manuseio das informações obtidas. (Para saber mais acesse o [site do projeto](http://www.paraondefoiomeudinheiro.com.br/sobre)).
 
 O sistema é totalmente escrito tem Perl e neste artigo veremos como clonar o projeto do Github, configurar o ambiente local e rodar o sistema em sua máquina para poder contribuir e ajudar na complementação e evolução deste sistema.
 
@@ -26,20 +26,17 @@ Agora, entraremos dentro da pasta do nosso projeto e instalaremos todas as depen
     $ cd POFOMD
     $ sudo cpanm inc::Module::Install
     $ sudo cpanm Module::Install::Catalyst
-    $ sudo cpanm SQL::Translator
-    $ sudo cpanm DBD::Pg
     $ sudo cpanm --installdeps .
     $ sudo perl Makefile.PL
 
-A partir deste ponto, já temos tudo o que precisamos instalado em nosso ambiente local, basta agora ajustarmos as configurações do banco de dados PostgreSQL para que o nosso sistema o utilize corretamente.
+A partir deste ponto, já temos tudo o que precisamos instalado em nosso ambiente local, basta agora ajustarmos as configurações do banco de dados PostgreSQL para que o nosso sistema o utilize corretamente. A modelagem do banco de dados é totalmente baseada em tabelas multidimensionais, onde há uma tabela de fato (gasto) e todas as outras são dimensões. No caso específico deste projeto, onde há uma grande quantidade de dados para serem agrupados para uso, isso facilita muito a utilização de bancos relacionais.
 
-    $ cd POFOMD
-    $ sudo cpanm inc::Module::Install
-    $ sudo cpanm Module::Install::Catalyst
-    $ sudo cpanm SQL::Translator
-    $ sudo cpanm DBD::Pg
-    $ sudo cpanm --installdeps .
-    $ sudo perl Makefile.PL
+    $ sudo su postgres
+    $ createuser seu_user
+    $ createdb seu_db
+    $ exit
+    $ sudo su postgres -c psql
+    postgres=# alter role seu_user with encrypted password 'seu_pass';
 
 Configurações de banco de dados ajustadas, vamos agora instalar todas as tabelas necessárias para o nosso projeto:
 

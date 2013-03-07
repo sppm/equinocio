@@ -42,7 +42,7 @@ perl -MXML::Hash::LX -e 'print hash2xml {env => \%ENV}'
 ```
 
 ### Bônus
- - [XML::LibXML::Simple][xmllibxmlsimple] é uma alternativa *drop-in* para **leitura** de XML via [XML::LibXML][libxml], utilizando a interface compatível com a do [XML::Simple][xmlsimple] (a interface continua ruim, mas o [libxml][libxmlbin] salva a pátria;
+ - [XML::LibXML::Simple][xmllibxmlsimple] é uma alternativa *drop-in* para **leitura** de XML via [XML::LibXML][libxml], utilizando a interface compatível com a do [XML::Simple][xmlsimple] (a interface continua ruim, mas o [libxml][libxmlbin] salva a pátria);
  - [App::p](https://metacpan.org/module/App::p) é um *upgrade* para *one-liners* em Perl que traz atalhos inclusive para as conversões `hash <=> XML <=> JSON <=> YAML`.
 
 ## XML::Compile

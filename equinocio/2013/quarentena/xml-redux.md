@@ -171,7 +171,7 @@ Uma parte bem legal e *eye-candy* fica por conta do `$doc->toString(1)`: o *pret
 ```
 
 Outra parte que se destaca menos, mas também muito importante: `lastmod => time` automagicamente vira `<lastmod>2013-03-03</lastmod>`.
-Não chega a ser um (ORM)[orm], mas já ajuda!
+Não chega a ser um [ORM], mas já ajuda!
 
 ## trang
 > Não tenho um XSD para o meu XML, e agora José?

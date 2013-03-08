@@ -74,7 +74,7 @@ Como é muito extenso ler um nibble usando binário usamos o sistema hexadecimal
 
 =head1 Comp-3
 
-Quando criamos um arquivo binário COBOL nós temos a opção de comprimir os campos numéricos, em (tamanho + 1) / 2.
+Quando criamos um arquivo binário COBOL nós temos a opção de comprimir os campos numéricosem (tamanho + 1) / 2.
 
 Por exemplo o número I<999787> em hexadecimal seria I<39 39 39 37 38 37>, que ocuparia 3 bytes. 
 

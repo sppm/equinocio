@@ -16,9 +16,7 @@ Só que nem sempre ele é, de fato, simples, por assumir alguns *defaults* nada 
 A título de exemplo, iremos processar um [sitemap.xml](http://www.sitemaps.org/protocol.html) típico.
 É claro que [existe um módulo no CPAN para isso][wwwsitemap], mas o jeito *one-liner* de extrair URLs de um *sitemap* via [XML::Simple][xmlsimple] seria:
 
-```sh
-perl -MXML::Simple -E 'say $_->{loc} for @{XMLin("sitemap.xml")->{url}}'
-```
+    perl -MXML::Simple -E 'say $_->{loc} for @{XMLin("sitemap.xml")->{url}}'
 
 Eis um *default* estranho: o nó-raiz, `urlset`, é descartado
 (pela minha experiência, esse é o *default* menos estranho desse módulo).
@@ -26,9 +24,7 @@ Eis um *default* estranho: o nó-raiz, `urlset`, é descartado
 A alternativa mais apropriada, com API mais consistente, e enraizada no excelente e robusto [XML::LibXML][libxml], é o [XML::Hash::LX][xmlhash].
 Eis como usá-lo para o mesmo objetivo:
 
-```sh
-perl -MXML::Hash::LX -0777 -nE 'say $_->{loc} for @{xml2hash($_)->{urlset}{url}}' sitemap.xml
-```
+    perl -MXML::Hash::LX -0777 -nE 'say $_->{loc} for @{xml2hash($_)->{urlset}{url}}' sitemap.xml
 
 Esse módulo é menos "mágico" e respeita o [principle of least astonishment](https://en.wikipedia.org/wiki/Principle_of_least_astonishment)
 (o que é muito bom na hora de debugar!).
@@ -37,9 +33,7 @@ Por outro lado, o fato de utilizar o [libxml][libxmlbin] por baixo dos panos o d
 Já para gerar um XML a partir de um *hash*, é a coisa mais trivial
 (ao contrário do [XML::Simple][xmlsimple], cujos *defaults* estranhos tornam o *output* irreconhecível):
 
-```sh
-perl -MXML::Hash::LX -e 'print hash2xml {env => \%ENV}'
-```
+    perl -MXML::Hash::LX -e 'print hash2xml {env => \%ENV}'
 
 ### Bônus
  - [XML::LibXML::Simple][xmllibxmlsimple] é uma alternativa *drop-in* para **leitura** de XML via [XML::LibXML][libxml], utilizando a interface compatível com a do [XML::Simple][xmlsimple] (a interface continua ruim, mas o [libxml][libxmlbin] salva a pátria);
@@ -48,18 +42,16 @@ perl -MXML::Hash::LX -e 'print hash2xml {env => \%ENV}'
 ## XML::Compile
 Segue um padrão bastante comum ao trabalhar com os dados alheios em JSON:
 
-```perl
-for my $addr (@{$json->{results}}) {
-    next if 
-        ref($addr->{types}) ne 'ARRAY' or
-        ref($addr->{address_components}) ne 'ARRAY' or
-        ref($addr->{geometry}) ne 'HASH' or
-        ref($addr->{geometry}->{location}) ne 'HASH' or
-        not defined($addr->{geometry}->{location_type}) or
-        not grep m{^(route|street|postal_code)}i, @{$addr->{types}};
-    ...
-}
-```
+    for my $addr (@{$json->{results}}) {
+        next if 
+            ref($addr->{types}) ne 'ARRAY' or
+            ref($addr->{address_components}) ne 'ARRAY' or
+            ref($addr->{geometry}) ne 'HASH' or
+            ref($addr->{geometry}->{location}) ne 'HASH' or
+            not defined($addr->{geometry}->{location_type}) or
+            not grep m{^(route|street|postal_code)}i, @{$addr->{types}};
+        ...
+    }
 
 No caso do JSON, a validação da estrutura dos dados fica "por conta do leitor".
 Existem formas mais ou menos elegantes de fazê-lo, sendo a mais trivial encapsular todo o tratamento dentro de um bloco `eval { ... }`.
@@ -67,11 +59,9 @@ Com XML, **não precisa ser assim**, afinal, temos XSD, [XML Schema Definition](
 
 Voltando para o caso do `sitemap.xml`, a definição oficial do *schema* encontra-se em [http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd](http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd):
 
-```
-$ curl -O http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd
-$ xmllint --noout --schema sitemap.xsd sitemap.xml
-sitemap.xml validates
-```
+    $ curl -O http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd
+    $ xmllint --noout --schema sitemap.xsd sitemap.xml
+    sitemap.xml validates
 
 [xmllint](http://manpages.ubuntu.com/manpages/natty/man1/xmllint.1.html) é um utilitário que faz parte da distribuição do [libxml][libxmlbin] e, entre outras coisas, faz o papel do (finado) [HTML Tidy](http://tidy.sourceforge.net/).
 O fato do nosso `sitemap.xml` ter sido validado com o *schema* `sitemap.xsd` significa que uma boa parte das "verificações manuais" se torna desnecessária.
@@ -81,28 +71,26 @@ O próximo passo é fazer tudo de uma vez: tanto a validação quanto o *parsing
 É exatamente esse o papel do módulo [XML::Compile][xmlcompile].
 O seu nome descreve precisamente o seu *modus operandi*, mas ofusca as vantagens obtidas ao usá-lo:
 
-```perl
-#!/usr/bin/env perl
-use 5.010;
-use strict;
-use warnings;
+    #!/usr/bin/env perl
+    use 5.010;
+    use strict;
+    use warnings;
 
-use Carp qw(croak);
-use XML::Compile::Schema;
+    use Carp qw(croak);
+    use XML::Compile::Schema;
 
-my $schema  = XML::Compile::Schema->new('sitemap.xsd');
-my $reader  = $schema->compile(
-    READER          => '{http://www.sitemaps.org/schemas/sitemap/0.9}urlset',
-    sloppy_floats   => 1,
-    sloppy_integers => 1,
-);
+    my $schema  = XML::Compile::Schema->new('sitemap.xsd');
+    my $reader  = $schema->compile(
+        READER          => '{http://www.sitemaps.org/schemas/sitemap/0.9}urlset',
+        sloppy_floats   => 1,
+        sloppy_integers => 1,
+    );
 
-my $data    = eval { $reader->('sitemap.xml') };
-croak "XML error: $@" unless defined $data;
-for my $url (@{$data->{url}}) {
-    say $url->{loc};
-}
-```
+    my $data    = eval { $reader->('sitemap.xml') };
+    croak "XML error: $@" unless defined $data;
+    for my $url (@{$data->{url}}) {
+        say $url->{loc};
+    }
 
 O código acima, apesar de levantar as suspeitas, é suficientemente robusto para a tarefa (listar as URLs de um *sitemap*).
 A validação funciona no melhor estilo "it is better to `die()` than to `return()` in failure": faltando o arquivo 100% coerente com o *schema*, o programa aborta.
@@ -127,48 +115,44 @@ Para quem acha que **gerar** um XML na base de `print`, interpolação e concate
 (*encoding* e *named entities*, entre outros) são chatos demais.
 Eis um gerador simples de *sitemap*:
 
-```perl
-#!/usr/bin/env perl
-use strict;
-use warnings;
+    #!/usr/bin/env perl
+    use strict;
+    use warnings;
 
-use XML::Compile::Schema;
-use XML::LibXML::Document;
+    use XML::Compile::Schema;
+    use XML::LibXML::Document;
 
-my $schema  = XML::Compile::Schema->new('sitemap.xsd');
-my $writer  = $schema->compile(
-    WRITER  => '{http://www.sitemaps.org/schemas/sitemap/0.9}urlset',
-    use_default_namespace => 1, # elimina os prefixos <x0:...>
-);
-my $doc     = XML::LibXML::Document->new(1.0 => 'UTF-8');
+    my $schema  = XML::Compile::Schema->new('sitemap.xsd');
+    my $writer  = $schema->compile(
+        WRITER  => '{http://www.sitemaps.org/schemas/sitemap/0.9}urlset',
+        use_default_namespace => 1, # elimina os prefixos <x0:...>
+    );
+    my $doc     = XML::LibXML::Document->new(1.0 => 'UTF-8');
 
-my $data = { url => [
-    {
-        loc         => 'http://blogs.perl.org/users/stas/',
-        lastmod     => time(), # time() retorna Unix timestamp!
-        changefreq  => 'monthly',
-        priority    => 1.0,
-    },
-] };
-my $xml = $writer->($doc, $data);
-$doc->setDocumentElement($xml);
+    my $data = { url => [
+        {
+            loc         => 'http://blogs.perl.org/users/stas/',
+            lastmod     => time(), # time() retorna Unix timestamp!
+            changefreq  => 'monthly',
+            priority    => 1.0,
+        },
+    ] };
+    my $xml = $writer->($doc, $data);
+    $doc->setDocumentElement($xml);
 
-print $doc->toString(1); # auto-indent ;)
-```
+    print $doc->toString(1); # auto-indent ;)
 
 Uma parte bem legal e *eye-candy* fica por conta do `$doc->toString(1)`: o *pretty-printing*, com a indentação automática:
 
-```xml
-<?xml version="1" encoding="UTF-8"?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url>
-    <loc>http://blogs.perl.org/users/stas/</loc>
-    <lastmod>2013-03-03</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>1</priority>
-  </url>
-</urlset>
-```
+    <?xml version="1" encoding="UTF-8"?>
+    <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+      <url>
+        <loc>http://blogs.perl.org/users/stas/</loc>
+        <lastmod>2013-03-03</lastmod>
+        <changefreq>monthly</changefreq>
+        <priority>1</priority>
+      </url>
+    </urlset>
 
 Outra parte que se destaca menos, mas também muito importante: `lastmod => time` automagicamente vira `<lastmod>2013-03-03</lastmod>`.
 Não chega a ser um [ORM], mas já ajuda!
@@ -185,31 +169,27 @@ A primeira é óbvia e é a que eu recomendo.
 Já a segunda pode ser uma "rodinha de bicicleta" no caminho para a primeira.
 Para o tal, temos a ferramenta [trang][trang]:
 
-```
-$ java -jar trang.jar sitemap.xml sitemap.rnc
-$ cat sitemap.rnc
-default namespace = "http://www.sitemaps.org/schemas/sitemap/0.9"
-namespace xsi = "http://www.w3.org/2001/XMLSchema-instance"
+    $ java -jar trang.jar sitemap.xml sitemap.rnc
+    $ cat sitemap.rnc
+    default namespace = "http://www.sitemaps.org/schemas/sitemap/0.9"
+    namespace xsi = "http://www.w3.org/2001/XMLSchema-instance"
 
-start =
-  element urlset {
-    attribute xsi:schemaLocation { text },
-    element url {
-      element loc { xsd:anyURI },
-      element lastmod { xsd:dateTime }?,
-      element changefreq { xsd:NCName },
-      element priority { xsd:decimal }
-    }+
-  }
-```
+    start =
+      element urlset {
+        attribute xsi:schemaLocation { text },
+        element url {
+          element loc { xsd:anyURI },
+          element lastmod { xsd:dateTime }?,
+          element changefreq { xsd:NCName },
+          element priority { xsd:decimal }
+        }+
+      }
 
 No exemplo acima, produzimos, automagicamente, um *schema* no formato [RELAX NG Compact](https://en.wikipedia.org/wiki/RELAX_NG#Compact_syntax)
 (mais amigável para os olhos humanos).
 [trang][trang] também gera XSD, que é o que precisamos para deixar o [XML::Compile][xmlcompile] feliz:
 
-```
-$ java -jar trang.jar sitemap.xml sitemap2.xsd
-```
+    $ java -jar trang.jar sitemap.xml sitemap2.xsd
 
 O arquivo gerado é bem mais simples do que o *schema* original (ao qual felizmente temos acesso irrestrito).
 Isso implica que nem todo *sitemap* será processável com esse *schema*; um ou outro utilizará definições não-contempladas no exemplo usado para a inferência.
@@ -221,52 +201,48 @@ De qualquer forma, já é um bom começo para ao menos **ter** um *schema*!
 Observei acima que o [XML::Compile][xmlcompile] é *quase* um [Object-relational mapping][orm].
 Então, o [XML::Rabbit][xmlrabbit] chega mais perto ainda:
 
-```perl
-#!/usr/bin/env perl
-package Sitemap;
-use XML::Rabbit::Root;
+    #!/usr/bin/env perl
+    package Sitemap;
+    use XML::Rabbit::Root;
 
-add_xpath_namespace sitemap => 'http://www.sitemaps.org/schemas/sitemap/0.9';
-has_xpath_object_list url   => '/sitemap:urlset/sitemap:url' => 'Sitemap::URL';
+    add_xpath_namespace sitemap => 'http://www.sitemaps.org/schemas/sitemap/0.9';
+    has_xpath_object_list url   => '/sitemap:urlset/sitemap:url' => 'Sitemap::URL';
 
-finalize_class;
+    finalize_class;
 
-package Sitemap::URL;
-use XML::Rabbit;
+    package Sitemap::URL;
+    use XML::Rabbit;
 
-has_xpath_value loc         => './sitemap:loc';
-has_xpath_value lastmod     => './sitemap:lastmod';
-has_xpath_value changefreq  => './sitemap:changefreq';
-has_xpath_value priority    => './sitemap:priority';
+    has_xpath_value loc         => './sitemap:loc';
+    has_xpath_value lastmod     => './sitemap:lastmod';
+    has_xpath_value changefreq  => './sitemap:changefreq';
+    has_xpath_value priority    => './sitemap:priority';
 
-finalize_class;
+    finalize_class;
 
-package main;
-use 5.010;
-use strict;
-use warnings;
+    package main;
+    use 5.010;
+    use strict;
+    use warnings;
 
-my $sitemap = Sitemap->new(file => 'sitemap.xml');
-for my $url (@{$sitemap->url}) {
-    say $url->loc;
-}
-```
+    my $sitemap = Sitemap->new(file => 'sitemap.xml');
+    for my $url (@{$sitemap->url}) {
+        say $url->loc;
+    }
 
 Aqui, meramente comunico a existência de tal módulo, pois o tutorial escrito [pelo próprio autor](https://metacpan.org/author/ROBINS), que ensina a implementar um [cliente para a API do Last::FM][lastfm], é insuperável.
 Só destaco que vale a pena dar uma olhada na ferramenta [dump_xml_structure](https://metacpan.org/module/dump_xml_structure), que ajuda a analisar a estrutura do XML:
 
-```
-$ dump_xml_structure sitemap.xml
-node: /x:urlset
-attr: /x:urlset/@xsi:schemaLocation
-node: /x:urlset/text()
-node: /x:urlset/x:url
-node: /x:urlset/x:url/*
-node: /x:urlset/x:url/*/text()
-node: /x:urlset/x:url/text()
-Namespace: xsi=http://www.w3.org/2001/XMLSchema-instance
-Namespace: x=http://www.sitemaps.org/schemas/sitemap/0.9
-```
+    $ dump_xml_structure sitemap.xml
+    node: /x:urlset
+    attr: /x:urlset/@xsi:schemaLocation
+    node: /x:urlset/text()
+    node: /x:urlset/x:url
+    node: /x:urlset/x:url/*
+    node: /x:urlset/x:url/*/text()
+    node: /x:urlset/x:url/text()
+    Namespace: xsi=http://www.w3.org/2001/XMLSchema-instance
+    Namespace: x=http://www.sitemaps.org/schemas/sitemap/0.9
 
 ## Autor
 Stanislaw Pusep

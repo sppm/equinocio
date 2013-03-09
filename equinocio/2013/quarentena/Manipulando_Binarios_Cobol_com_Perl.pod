@@ -85,7 +85,7 @@ Por exemplo I<99 97 87 44> em hexadecimal será o número I<999787> positivo, on
 
 =head1 Convert::IBM390
 
-Para não ter que ficar fazendo as conversões usando "unpack", existe um módulo no CPAN quejá faz todas as conversões. L<https://metacpan.org/module/GROMMEL/Convert-IBM390-0.27/lib/Convert/IBM390.pm/"Convert::IBM390">
+Para não ter que ficar fazendo as conversões usando "unpack" manualmente, existe o seguinte módulo, L<https://metacpan.org/module/GROMMEL/Convert-IBM390-0.27/lib/Convert/IBM390.pm/"Convert::IBM390">.
 
 =head1 Referências
 

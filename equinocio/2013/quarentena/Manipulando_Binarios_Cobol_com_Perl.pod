@@ -8,23 +8,23 @@
 
 O mainframe usa codificação EBCDIC internamente é usado por grandes corporações ao redor do mundo, no dia a dia integrar esse tipo de sistema com a data warehouse envolve alguns desafios únicos.
 
-<equinocio/2013/mar/.assets/img/imagem1.jpb> 
+<equinocio/2013/mar/.assets/img/imagem1.jpg> 
 
 Nesse artigo será abordado como ler dados do binário COBOL.
 
 =head1 Cobol Data File 
 
-O binário COBOL é um arquivo posicional e que a sequência dos bytes representa um dado. Que pode ser dos seguintes tipos:
+O binário COBOL é um arquivo posicional em que a sequência dos bytes representa um dado. Que pode ser dos seguintes tipos:
 
 	"A" para caracteres alpha  (A-Z, a-z, e espaços).
 	"9" para um campo numérico (apenas números 0-9) .
 	"X" qualquer caracter (incluindo binário).
 
-O intuito desse artigo não é ensinar como programr em COBOL, é de apenas ensinar como lêr. Quando um binário COBOL é gerado não existe nenhuma informação que diga informação sobre
+O intuito desse artigo não é ensinar como programar em COBOL, é de apenas ensinar como lêr. Quando um binário COBOL é gerado não existe nenhuma informação que diga informação sobre 
 aquele dado. É necessário ter o que chamamos de B<COBOL Copy Book>, que não é nada além de um texto que diz o tamanho de cada linha e o que os bytes representam. 
 Dentro do binário COBOL não tem nada, além de dados sem sentido. Para que eles façam sentido é necessário um arquivo de "metainformação" dizendo o que cada posição representa.
 
-<equinocio/2013/mar/.assets/img/imagem2.jpb>
+<equinocio/2013/mar/.assets/img/imagem2.jpg>
 
 Por exemplo vamos criar um arquivo binário com as seguintes posições:
 
@@ -40,7 +40,7 @@ Vamos criar um binário fictício:
 	perl -MEncode 'binmode STDOUT;print encode("posix-bc","1234foobar5678foobar8765foobaz7485foobar")' \
 	> arquivo.cobol
 
-Vamos salva-lo como I<arquivo.cobol> e agora vamos ler o arquivo.
+Vamos salva-lo como I<arquivo.cobol> e agora vamos lêr o arquivo.
 
 	#!/usr/bin/perl
 

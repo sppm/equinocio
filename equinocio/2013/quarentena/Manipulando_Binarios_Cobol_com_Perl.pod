@@ -74,11 +74,11 @@ Como é muito extenso ler um nibble usando binário usamos o sistema hexadecimal
 
 =head1 Comp-3
 
-Quando criamos um arquivo binário COBOL nós temos a opção de comprimir os campos numéricosem tamanho / 2 + 1.
+Quando criamos um arquivo binário COBOL nós temos a opção de comprimir os campos numéricos (tamanho / 2 + 1).
 
 Por exemplo o número I<999787> em hexadecimal seria I<39 39 39 37 38 37>, que ocuparia 6 bytes. 
 
-O que o comp-3 faz é o sistema inverso, ele grava I<99 97 87> hexadecimal mais uma letra que indica se o número é positivo ou negativo tamanho / 2 + 1.
+O que o comp-3 faz é o sistema inverso, ele grava I<99 97 87> hexadecimal mais uma letra que indica se o número é positivo ou negativo, por isso a fórmula é (tamanho / 2 + 1). 
 Resumindo, quando um campo for do tipo comp-3 será necessário pegar o valor em hexadeciamal que já será o valor real do número.
 
 Por exemplo I<99 97 87 44> em hexadecimal será o número I<999787> positivo, onde o I<44> representa a letra I<D> que diz que o número é positivo, se fosse a letra I<C> o número seria negativo.

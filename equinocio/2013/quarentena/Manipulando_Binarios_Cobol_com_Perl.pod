@@ -6,7 +6,7 @@
 
 =head1 Introdução 
 
-O mainframe usa codificação EBCDIC internamente[0] e é usado por grandes corporações ao redor do mundo, no dia a dia integrar esse tipo de sistema com a data warehouse envolve alguns desafios únicos.
+O mainframe usa codificação EBCDIC internamente é usado por grandes corporações ao redor do mundo, no dia a dia integrar esse tipo de sistema com a data warehouse envolve alguns desafios únicos.
 
 <equinocio/2013/mar/.assets/img/imagem1.jpb> 
 
@@ -37,7 +37,7 @@ Bom lendo o B<copy book> podemos saber que o tamanho de cada linha é de 10 byte
 
 Vamos criar um binário fictício: 
 
-	perl -MEncode 'print encode("posix-bc","1234foobar1234foobar1234foobar1234foobar")' \
+	perl -MEncode 'binmode STDOUT;print encode("posix-bc","1234foobar5678foobar8765foobaz7485foobar")' \
 	> arquivo.cobol
 
 Vamos salva-lo como I<arquivo.cobol> e agora vamos ler o arquivo.
@@ -76,7 +76,7 @@ Como é muito extenso ler um nibble usando binário usamos o sistema hexadecimal
 
 Quando criamos um arquivo binário COBOL nós temos a opção de comprimir os campos numéricos (tamanho / 2 + 1).
 
-Por exemplo o número I<999787> em hexadecimal seria I<39 39 39 37 38 37>, que ocuparia 6 bytes. 
+Por exemplo o número I<999787> em hexadecimal seria I<39 39 39 37 38 37>, que ocuparia 6 bytes e teria 12 nibbles. 
 
 O que o comp-3 faz é o sistema inverso, ele grava I<99 97 87> hexadecimal mais uma letra que indica se o número é positivo ou negativo, por isso a fórmula é (tamanho / 2 + 1). 
 Resumindo, quando um campo for do tipo comp-3 será necessário pegar o valor em hexadeciamal que já será o valor real do número.
@@ -90,6 +90,8 @@ Para não ter que ficar fazendo as conversões usando "unpack" manualmente, exis
 =head1 Referências
 
 [0] - http://en.wikipedia.org/wiki/EBCDIC
+[1] - Art of Assembly Language Programming
+[2] - http://www.3480-3590-data-conversion.com/article-packed-fields.html  
 
 =head1 Autor
 

@@ -145,7 +145,7 @@ e assim construimos o nosso main loop
 
 perceba que o código é semelhante ao primeiro exemplo, a diferença é que primeiro eu vou processar quem eu posso ler (can_read), depois vou analisar cada entrada para, no final, escrever em que eu posso (can_write). E nosso tutorial de IO não bloqueante terminaria aqui, se não fosse necessario adicionar o codigo necessário para fazer o nosso exemplo funcionar.
 
-Vamos é estabelecer o que cada função de processamento faz. Neste exemplo, ao processar a leitura de cada socket vamos guardar os bytes recebidos em um *buffer* de memória (um buffer por cliente, neste caso) porém, caso o socket seja o $server, vamos aceitar a nova conexão, registrando no select.
+Vamos estabelecer o que cada função de processamento faz. Neste exemplo, ao processar a leitura de cada socket vamos guardar os bytes recebidos em um *buffer* de memória (um buffer por cliente, neste caso) porém, caso o socket seja o $server, vamos aceitar a nova conexão, registrando no select.
 
 	sub process_read{
 	  my $socket = shift;
@@ -270,7 +270,7 @@ Acredito que o exemplo, apesar de simples, é interessante o suficiente para ser
 * @quit - sai da sala
 * @stat - mostra estatisticas do servidor (uptime, versao, etc)
 * @say [mensagem] - envia mensagem para todos / podemos ignorar o que nao começa por @
-* @privmsg [x] - envia mensagem provada para o usuario x
+* @privmsg [x] - envia mensagem privada para o usuario x
 
 Um outro exemplo, até mais interessante, seria construir um replicador de eventos. Nesse poderiamos criar um script que escuta em duas portas (9090 e 9099, por exemplo) e tudo o que conectar na porta 9090 e escrever lá, será transmitido para os clientes conectados na porta 9099. Imagine que na porta 9090 estamos recebendo um stream de um video ao vivo e temos N clientes conectados na 9099 consumindo este video, se o protocolo de streaming não necessitar de algum handshake entre o servidor e o cliente. Um exemplo desse tipo de protocolo é o HTTP Streamming, que é basicamente uma playlist em ascii contendo URLs com trechos de 10 segundos de video, geralmente trabalhando com um buffer de 30 segundos (de atraso). Os clientes podem consumir a lista de urls e então fazer o download do video. Nem tudo precisa ser trafego de bytes, alguns procotos podem (as vezes devem) ser simples e até textuais.
 

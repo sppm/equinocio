@@ -4,11 +4,11 @@
 
 Quem já lidou com entrada e saída de dados com multiplas fontes (sejam varios arquivos ou sockets) sabe da complexidade envolvida e dos desafios de performance/latência envolvidos. Imagine distribuir um stream de video ao vivo para dezenas de milhares de clientes ou processar eventos oriundos de multiplas fontes, como dados financeiros de uma bolsa de valores. Neste artigo vou introduzir uma forma de resolver alguns problemas usando multiplexação de I/O através da api IO::Select, que utiliza o conceito de I/O não bloqueante, através de uma simples aplicação de chat como exemplo.
 
-## Introdução 
+## Introdução
 
 Um dos problemas de lidar com entrada e saída de dados (seja com arquivos ou através de uma rede, por exemplo) é a diferença de tempo nas operações (leitura ou escrita) se compararmos com as mesmas operações em memória. Tipicamente é muito mais rapido escrever um conjunto de bytes na memória e isso se deve à natureza dos dispositivos: ao gravar em um disco existe uma operação física de mover o cabeçote até uma dada posição e fazer todo o trabalho magnético, mecânico e as vezes optico. Hoje em dia, a latência para ler 1 MB sequencial na memória ram pode ser cerca de 80 vezes mais rapido do que ler em um disco rígido (é claro, tudo depende do hardware envolvido), como pode ser encontrado [https://gist.github.com/jboner/2841832](aqui).
 
-Essa diferença entre á latência do I/O e operações em memória foi uma das motivações para criar os primeiros sistemas operacionais de tempo compartilhado. Foi percebido, por exemplo, que no tempo gasto esperando que uma operação de I/O fosse concluida poderiam ser feitas outras operações em memória, no caso se um computador estivesse executando um programa financeiro que manipulava dados ele poderia ceder parte do seu tempo na cpu para um programa de engenharia que basicamente fazia diversos calculos numéricos e assim os recursos da maquina eram utilizados de forma mais racional. 
+Essa diferença entre á latência do I/O e operações em memória foi uma das motivações para criar os primeiros sistemas operacionais de tempo compartilhado. Foi percebido, por exemplo, que no tempo gasto esperando que uma operação de I/O fosse concluida poderiam ser feitas outras operações em memória, no caso se um computador estivesse executando um programa financeiro que manipulava dados ele poderia ceder parte do seu tempo na cpu para um programa de engenharia que basicamente fazia diversos calculos numéricos e assim os recursos da maquina eram utilizados de forma mais racional.
 
 Hoje em dia o sistema operacional é responsável pelas operações de entrada e saída e quando um processo precisa fazer uma dessas operações a CPU não fica esperando que a leitura (ou escrita) termine, ela coloca o processo em um processo de espera e executa outros processos (dando uma pequena fatia de tempo para cada processo de acordo com o algoritmo usado no escalonador de processos) e, dessa forma, simulamos que um sistema operacional executa varios processos simultâneamente (como quando estamos com varias abas do browser, o editor de texto, o player de musica e o cliente de email abertos ao mesmo tempo). O panorama é melhor com as modernas CPUs que possuem varios pares de núcleos, oferencendo paralelismo real aliado ao pseudo-paralelismo do algoritmo do sistema operacional.
 
@@ -33,22 +33,22 @@ Este tipo de detalhe faz toda a diferença se queremos determinar como um sistem
 
 	while(1){
 		my $connection = $socket->accept();
-		
+
 		# a chamada fork vai criar um subprocesso, copiando o processo pai
-		# em memória, assim o filho culda da nova conexão e o pai apenas
+		# em memória, assim o filho cuida da nova conexão e o pai apenas
 		# espera novos clientes - não bloqueia lidar com multiplos clientes
 		# pois cada cliente é responsabilidade de um processo apenas.
 		if(my $pid = fork) {
-			# no processo pai, fechamos o socket e 
+			# no processo pai, fechamos o socket e
 			# continuamos esperando novas conexoes
 			$connection->close();
 		} else {
-			# no processo filho, 
+			# no processo filho,
 			# lemos o socket e processamos o request
 			$connection->read();
 		}
 	}
-	
+
 Esta é uma razão pela qual preferir pela imutabilidade em certos casos nos traz grandes vantágens: como gerenciar um estado mutável pode ser uma tarefa complexa, sistemas onde temos o nosso estado "imutável" tende a escalar com mais facilidade, por esta razão linguagens funcionais como Erlang fazem tanto sucesso para resolver esta classe de problemas. Mas usar uma linguagem funcional não é uma bala de prata. Outra coisa é achar que apenas criar um novo processo resolve os nossos problemas: cada processo é relativamente caro dependendo do sistema operacional e mesmo utilizando tecnicas como Copy on Write *podemos* ter uma ineficiente no uso dos recursos da maquina em algum momento, se formos atender um número muito grante de requests.
 
 Agora, vamos imaginar, por exemplo, uma aplicação de chat, onde varios clientes podem se conectar e trocar informações entre si. Este exemplo é interessante pois nós temos um estado interno no nosso sistema, afinal todos os clientes interagem com todos e se nós distribuirmos a carga entre varios processos nós teremos a complexidade extra de sincronizar e nos comunicar entre os processos também! Se o nosso servidor utilizar IO bloqueante, provavelmente vamos ter algo como:
@@ -70,7 +70,7 @@ Agora, vamos imaginar, por exemplo, uma aplicação de chat, onde varios cliente
 			perform_write $socket_out;
 		}
 	}
-	
+
 imagine o caso se o cliente 1 enviou a mensagem "oi" para o cliente 2. eu vou ler as entradas de todos os clientes, vou processar os dados e vou escrever a mensagem para todos os clientes, no caso o cliente 2. Mas se eu tiver varios clientes e nem todos estão escrevendo algo? Este é o problema com IO bloqueante: é preciso estabelecer um timeout pois não é possivel saber se virá alguma sequencia de bytes ou não. Assim imagine que trabalhamos com timeout de 1 segundo e tenha, por exemplo, 1000 clientes. Cada ciclo de processamento poderá levará até 2 mil segundos para ser completado. Parece ser ineficiente se tudo passar por apenas um processo (e seriamos forçado a trabalhar, por exemplo, com o overhead de ter multiplos processos -as vezes em maquinas diferentes- e, dependendo da natureza da aplicação, ficará bem complexo - não que seja possivel fugir disso).
 
 Como visto até agora, podemos usar I/O não bloqueante de forma satisfatória em algumas condições: onde cada bloqueio na operação de read/write não seja um problema e temos a opção de distribuir o processamento via fork. Para outros problemas isto simplesmente não é aceitavel pois em um dado regime de acesso o sistema pode não responder de forma adequada.
@@ -93,22 +93,22 @@ Agora, para utilizar o select é necessario que o filehandle tenha o bit de não
 
 	Flags      00000010 do filehandle $server
 	-------------------
-	O_RDONLY   00000000 
+	O_RDONLY   00000000
 	O_WRONLY   00000001
 	O_RDWR     00000010
 	O_NONBLOCK 00000100
-	
+
 como podemos ver, apenas O_RDWR está ativo, o que significa que podemos escrever e ler nesse filehandle.
 
 Temos duas formas de setar o bit O_NONBLOCK, o primeiro é utilizando a subrotina *fcntl*
 
 	my $flags = fcntl($socket, F_GETFL, 0)       or die "Can't get flags for socket: $!\n";
 	fcntl($socket, F_SETFL, $flags | O_NONBLOCK) or die "Can't make socket nonblocking: $!\n";
-	
-ou utilizando IO::Handle, basta usar o método *blocking*		
+
+ou utilizando IO::Handle, basta usar o método *blocking*
 
 	$socket->blocking(0);
-	
+
 a outra é especificar na hora de abrir o filehandle. No caso do IO::Socket::INET basta fazer
 
 	my $socket = IO::Socket::INET->new(
@@ -120,7 +120,7 @@ a outra é especificar na hora de abrir o filehandle. No caso do IO::Socket::INE
 	    ) or die "ops... $!\n";
 
 agora vamos adicionar este socket ao nosso select
-	
+
 	my $select = IO::Select->new;
 
 	$select->add($server);
@@ -149,7 +149,7 @@ Vamos é estabelecer o que cada função de processamento faz. Neste exemplo, ao
 
 	sub process_read{
 	  my $socket = shift;
-      
+
 	  # diferenciando o servidor dos clientes
 	  if ($socket == $server) {
 	    process_new_connection;
@@ -157,7 +157,7 @@ Vamos é estabelecer o que cada função de processamento faz. Neste exemplo, ao
 	    process_read_to_buffer $socket;
 	  }
 	}
-	
+
 e as nossas novas subrotinas serão:
 
 	# nossa lista de clientes conectados
@@ -166,40 +166,40 @@ e as nossas novas subrotinas serão:
 	sub process_new_connection {
 	  # vou atribuir um nome, ou id, randomico
 	  my $name = rand();
-  
+
 	  # nosso log :)
 	  say "new client: $name connected!\n";
-  
+
 	  # aceito a conexão e adiciono no select
 	  my $new = $server->accept;
 	  $select->add($new);
-  
+
       # agora vou avisar cada cliente que temos gente nova!
 	  foreach my $client (values %clients){
 	    $client->{out_buffer} .= "\n$name connected...\n";
 	  }
-  
+
 	  # adiciono uma estrutura de dados associado a este cliente/socket
 	  $clients{$new} = { name => $name, in_buffer => "", out_buffer => ""};
 	}
 
 	sub process_read_to_buffer {
 	  my $socket = shift;
-  		
+
       # aqui eu verifico se tenho o socket na minha lista de clientes
 	  if( exists $clients{$socket} ){
 		  # aqui vou tentar ler de forma bufferizada
-	      my $rv = $socket->sysread(my $data, POSIX::BUFSIZ, 0); 
-	      
+	      my $rv = $socket->sysread(my $data, POSIX::BUFSIZ, 0);
+
 		 if(defined($rv) && length $data) {
 			  # se eu recebi algo, vou escrever no buffer de entrada
 	          $clients{$socket}->{in_buffer} .= $data;
-	      } elsif ($! != POSIX::EAGAIN) { 
+	      } elsif ($! != POSIX::EAGAIN) {
 		      # caso contrario, significa que o cliente Desconectou
 	          my $name = $clients{$socket}->{name};
-	
+
 	          say "delete client $name";
-	
+
 		      # removo da lista de clientes
 	          delete $clients{$socket};
 			  # e vou avisar todo mundo
@@ -213,7 +213,7 @@ e as nossas novas subrotinas serão:
 	      $select->remove($socket);
 	      $socket->close;
 	  }
-	}	
+	}
 
 Agora vamos processar os buffers de saida. É possivel perceber que para cada socket eu associo um hash contendo o nome, e dois buffers, um de entrada e um de saida. Percebam que estou escrevendo na saida padrão o que esta acontecendo através da subrotina *say*, apenas para ver o que esta acontecendo. Isto também é uma atividade de I/O e cada chamada de say é bloqueante! Pode não adiantar de nada ler os sockets de forma não bloqueante se, em dado momento, temos uma chamada que bloqueia o processo. O ideal é que TODO o I/O seja feito de forma que o processo nunca bloqueie e é por esta razão que temos duas entradas no hash que representa cada cliente do nosso servidor de chat: toda a comunicação é processada em memoria como é possivel ver abaixo:
 
@@ -230,12 +230,12 @@ Agora vamos processar os buffers de saida. É possivel perceber que para cada so
 	      # escrevo no buffer de saida de todos
 	      $b->{out_buffer} .= "\n" . ( $b->{name} eq $name ? "You": $name ) . " say: $message";
 	    }
-    
+
 	    # limpo o meu buffer
 	    $a->{in_buffer} = '';
 	  }
 	}
-	
+
 e quando eu puder escrever, vou escrever:
 
 	sub process_write{
@@ -244,7 +244,7 @@ e quando eu puder escrever, vou escrever:
 	  return unless (exists($clients{$socket}) &&    # vou escrever apenas nos clientes conectados
 	      length($clients{$socket}->{out_buffer}));  # e vou escrever apenas se houver algum buffer
 
-	  # aqui vou escrever de forma bufferizada  
+	  # aqui vou escrever de forma bufferizada
 	  my $rv = $socket->syswrite($clients{$socket}->{out_buffer}, POSIX::BUFSIZ);
 
 	  # e vou remover a quantidade de bytes que eu escrevi do buffer.
@@ -253,7 +253,7 @@ e quando eu puder escrever, vou escrever:
 	      $clients{$socket}->{out_buffer} = '' unless length $clients{$socket}->{out_buffer};
 	  }
 	}
-	
+
 perceba que eu utilizei esta tecnica para gerenciar de forma mais racional os recursos do sistema operacional. Através da API POSIX do select, é possivel trabalhar com I/O de forma que o processo nunca bloqueie em cada operação de I/O (apesar de ter um timeout nas operações). Importante: sempre utilize sysread e syswrite (operações bufferizadas) quando for utilizar operações em conjunto de um select ou poll. Não tente usar read ou o operador diamante < $file >.
 
 Uma coisa importante de mencionar é o uso do POSIX::EAGAIN - que significa "Resource temporarily unavailable". Isto é importante pois no modo não bloqueante as chamadas sysread and syswrite ainda podem bloquear por alguma razão (por exemplo se o filehandle foi acessado diretamente e não houve auxilio do select, como neste [exemplo](http://docstore.mik.ua/orelly/perl/cookbook/ch07_15.htm) ), nesse caso a chamada ira retornar undef e $! receberá o valor de EAGAIN.

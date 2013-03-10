@@ -143,7 +143,7 @@ e assim construimos o nosso main loop
 	  }
 	}
 
-perceba que o código é semelhante ao primeiro exemplo, a diferença é que primeiro eu vou processar quem eu posso ler (*can_read*), depois vou analisar cada entrada para, no final, escrever em que eu posso (*can_write*). E nosso tutorial de IO não bloqueante terminaria aqui, se não fosse necessario adicionar o codigo necessário para fazer o nosso exemplo funcionar.
+perceba que o código é semelhante ao primeiro exemplo, a diferença é que primeiro eu vou processar quem eu posso ler (can_read), depois vou analisar cada entrada para, no final, escrever em que eu posso (can_write). E nosso tutorial de IO não bloqueante terminaria aqui, se não fosse necessario adicionar o codigo necessário para fazer o nosso exemplo funcionar.
 
 Vamos é estabelecer o que cada função de processamento faz. Neste exemplo, ao processar a leitura de cada socket vamos guardar os bytes recebidos em um *buffer* de memória (um buffer por cliente, neste caso) porém, caso o socket seja o $server, vamos aceitar a nova conexão, registrando no select.
 
@@ -256,7 +256,7 @@ e quando eu puder escrever, vou escrever:
 
 perceba que eu utilizei esta tecnica para gerenciar de forma mais racional os recursos do sistema operacional. Através da API POSIX do select, é possivel trabalhar com I/O de forma que o processo nunca bloqueie em cada operação de I/O (apesar de ter um timeout nas operações). Importante: sempre utilize sysread e syswrite (operações bufferizadas) quando for utilizar operações em conjunto de um select ou poll. Não tente usar read ou o operador diamante < $file >.
 
-Uma coisa importante de mencionar é o uso do POSIX::EAGAIN - que significa "Resource temporarily unavailable". Isto é importante pois no modo não bloqueante as chamadas sysread and syswrite ainda podem bloquear por alguma razão (por exemplo se o filehandle foi acessado diretamente e não houve auxilio do select, como neste [exemplo](http://docstore.mik.ua/orelly/perl/cookbook/ch07_15.htm) ), nesse caso a chamada ira retornar undef e $! receberá o valor de EAGAIN.
+Uma coisa importante de mencionar é o uso do **POSIX::EAGAIN** - que significa "Resource temporarily unavailable". Isto é importante pois no modo não bloqueante as chamadas sysread and syswrite ainda podem bloquear por alguma razão (por exemplo se o filehandle foi acessado diretamente e não houve auxilio do select, como neste [exemplo](http://docstore.mik.ua/orelly/perl/cookbook/ch07_15.htm) ), nesse caso a chamada ira retornar undef e $! receberá o valor de EAGAIN.
 
 O codigo final do nosso servidor de chat pode ser encontrado [aqui](https://gist.github.com/peczenyj/5127157).
 

@@ -1,8 +1,6 @@
-=pod 
+=head1 Conhecendo e Trabalhando com o Modulo ObjectDB
 
 =encoding utf8
-
-=head1 Conhecendo e Trabalhando com o Modulo ObjectDB
 
 O modulo ObjectDB é um framework de ORM (Object-Relational Mapper) que implementa o conceito chamado
 Active Record. Este framework foi escrito pelo Viacheslav Tykhanovskyi(vti) e segundo sua própria 

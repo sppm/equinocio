@@ -1,4 +1,3 @@
-
 =pod
 
 =encoding utf8
@@ -102,11 +101,10 @@ Outro detalhe interessante deste exemplo, é a utilização do sudo para execuç
 	task "create", sub {
 
    		my $info = cloud_instance create => { 
-		image_id => "ami-02103876",
+			image_id => "ami-02103876",
 	     		name     => "static01",
 			key      => "dev-test",
 			zone => 'us-west-1b',
-
 		};
 
 		warn Dumper(\$info);

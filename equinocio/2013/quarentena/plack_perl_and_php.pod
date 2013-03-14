@@ -1,6 +1,6 @@
-=encoding utf8
-
 =head1 Executando scripts PHP com PSGI/Plack Perl
+
+=encoding utf8
 
 Nesse artigo vou mostrar como rodar seus scripts PHP com PSGI/Plack e vou mostrar como configurar os Frameworks CodeIgniter e CakePHP para serem executado com PSGI/Plack. Requisito para acompanhar o artigo é ter o Perl e PHP instalado em sua maquina, não vou abordar a instalação dos mesmo porque já existe excelentes artigos na internet.
 

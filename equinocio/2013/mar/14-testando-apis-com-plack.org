@@ -115,3 +115,8 @@ mas os arquivos gerados pelo cache podem ser armazenados no
 repositório, junto com o código. Se houver necessidade de atualizar os
 dados do serviço, basta remover os arquivos de cache e corrigir os
 valores esperados pelo código.
+** Autor
+Eden Cardim
+http://edencardim.me
+** Licensa
+Beerware

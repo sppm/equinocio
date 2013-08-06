@@ -212,10 +212,13 @@ Os comandos acima instalarão o perlbrew em C</opt/perlbrew> - assumindo, claro,
 seu usuário tem permissão para escrever nesse diretório. Depois disso, basta que
 os usuários que desejam usar seu perlbrew façam:
 
-   $ echo "source /opt/perlbrew/perl5/perlbrew/etc/bashrc" >> ~/.bashrc
+  
+   $ echo 'export PERLBREW_ROOT=/opt/perlbrew; source ${PERLBREW_ROOT}/etc/bashrc' >> ~/.bashrc
 
 Pronto, a partir daí qualquer um poderá escolher seu perl, mas apenas os que tiverem permissão
 de escrita no diretório definido em C<PERLBREW_ROOT> poderão instalar novas versões do perl.
+
+É importante manter a env PERLBREW_ROOT com o valor correto antes de executar o bashrc. Caso não exista, o PATH ficara vazio e vai aparecer uma mensagem dizendo que o perlbrew não esta instalado.
 
 =head2 Reinstalando todos os seus módulos em um novo perl
 

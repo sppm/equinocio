@@ -34,19 +34,19 @@ A forma mais conveniente de instalar e manter atualizado sua instalação com a 
 
 Em um sistema Debian ou derivado, você teria o seguinte exemplo:
 
-#+BEGIN_SRC bash
+#+BEGIN_SRC shell
 aptitude install libdbix-class-perl libdbd-pg-perl
 #+END_SRC
 
 Ou em um sistema OS/X:
 
-#+BEGIN_SRC bash
+#+BEGIN_SRC shell
 sudo port install p5-dbix-class p5-dbd-pg
 #+END_SRC
 
 Por fim, se você não tem acesso administrativo ao sistema operacional ou não utiliza o Perl do SO:
 
-#+BEGIN_SRC bash
+#+BEGIN_SRC shell
 cpanm DBIx::Class DBD::Pg
 #+END_SRC
 

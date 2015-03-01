@@ -1,5 +1,0 @@
-=pod
-
-foo bar baz
-
-=cut

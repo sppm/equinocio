@@ -1,7 +1,0 @@
-[[onion_logo.png]]
-** [[Quem Somos]]
-** [[Encontro Social]]
-** [[/pages/artigos/][Artigos]]
-** [[Treinamento]]
-** [[Lista]]
-** [[IRC]]
